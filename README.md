@@ -215,6 +215,7 @@ The [`demos` directory](demos/) includes sample projects for:
 - [`Adobe ExtendScript`](demos/extendscript/)
 - [`Headless Browsers`](demos/headless/)
 - [`canvas-datagrid`](demos/datagrid/)
+- [`x-spreadsheet`](demos/xspreadsheet/)
 - [`Swift JSC and other engines`](demos/altjs/)
 - [`"serverless" functions`](demos/function/)
 - [`internet explorer`](demos/oldie/)
@@ -285,8 +286,8 @@ Excel 2007, nothing outside of SheetJS or Excel supported the format.
 To promote a format-agnostic view, js-xlsx starts from a pure-JS representation
 that we call the ["Common Spreadsheet Format"](#common-spreadsheet-format).
 Emphasizing a uniform object representation enables new features like format
-conversion (reading an XLSX template and saving as XLS) and circumvents the
-"class trap".  By abstracting the complexities of the various formats, tools
+conversion (reading an XLSX template and saving as XLS) and circumvents the mess
+of classes.  By abstracting the complexities of the various formats, tools
 need not worry about the specific file type!
 
 A simple object representation combined with careful coding practices enables
@@ -1683,6 +1684,7 @@ The exported `read` and `readFile` functions accept an options argument:
 |`password`   | ""      | If defined and file is encrypted, use password **    |
 |`WTF`        | false   | If true, throw errors on unexpected file features ** |
 |`sheets`     |         | If specified, only parse specified sheets **         |
+|`PRN`        | false   | If true, allow parsing of PRN files **               |
 
 - Even if `cellNF` is false, formatted text will be generated and saved to `.w`
 - In some cases, sheets may be parsed even if `bookSheets` is false.
@@ -1706,6 +1708,7 @@ The exported `read` and `readFile` functions accept an options argument:
   new XLSB-compatible blob from the XLS CFB container.
 - `codepage` is applied to BIFF2 - BIFF5 files without `CodePage` records and to
   CSV files without BOM in `type:"binary"`.  BIFF8 XLS always defaults to 1200.
+- `PRN` affects parsing of text files without a common delimiter character.
 - Currently only XOR encryption is supported.  Unsupported error will be thrown
   for files employing other encryption methods.
 - WTF is mainly for development.  By default, the parser will suppress read
